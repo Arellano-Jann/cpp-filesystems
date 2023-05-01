@@ -11,25 +11,27 @@
 
 **General Instructions and Hints**: 
 
--Do not change supplied file names. <br/>
--All code _must_ be written in C++. I **strongly** encourage you to use strings where it makes sense to do so. If you need to convert a string to a character array for low level c calls, you can use [c_str()](https://cplusplus.com/reference/string/string/c_str/). <br/>
--These instructions contain general descriptions of funcitonality. You are welcome to implement the code in whatever way makes the most sense to you, unless I explicitly tell you that it must be coded in a certain way. That means that function names, parameters, and return values are yours to choose. You should use helper functions in the main.cpp file to make your life easier- seriously, there are several spots in the directions where I recommend certain functionality be grouped into one function. You are allowed to ignore those suggestions, but that will result in really messy, hard to debug code. <br/>
--You must implement the same error checking as I have in the executable. If you do not implement it, you will lose a significant number of points. <br/>
--All output should match exactly what is shown in the executable (including spacing!). <br/>
--When part 1 is done, open a terminal and cd to your github repo, wherever you saved it. Do the following: _git add ._ then _git commit -m <whatevermessageyouwant>_ then _git push_.<br/>
--Your code must run in Ubuntu 18.04 <br/>
--All work should be done on a machine where you have sudoer permission. <br/>
--All work should be your own. <br/>
+- Do not change supplied file names.
+- All code _must_ be written in C++. I **strongly** encourage you to use strings where it makes sense to do so. If you need to convert a string to a character array for low level c calls, you can use [c_str()](https://cplusplus.com/reference/string/string/c_str/). 
+- These instructions contain general descriptions of funcitonality. You are welcome to implement the code in whatever way makes the most sense to you, unless I explicitly tell you that it must be coded in a certain way. That means that function names, parameters, and return values are yours to choose. You should use helper functions in the main.cpp file to make your life easier- seriously, there are several spots in the directions where I recommend certain functionality be grouped into one function. You are allowed to ignore those suggestions, but that will result in really messy, hard to debug code. 
+- You must implement the same error checking as I have in the executable. If you do not implement it, you will lose a significant number of points. 
+- All output should match exactly what is shown in the executable (including spacing!). 
+- When part 1 is done, open a terminal and cd to your github repo, wherever you saved it. Do the following: _git add ._ then _git commit -m <whatevermessageyouwant>_ then _git push_.<br/>
+- Your code must run in Ubuntu 18.04 <br/>
+- All work should be done on a machine where you have sudoer permission. <br/>
+- All work should be your own. <br/>
 
--I have provided an example executable named exemplar. Make sure you run it a few times so that you understand what the program is doing. You can fix permission denied errors with `chmod u+x <filename>`<br/>
+- I have provided an example executable named exemplar. Make sure you run it a few times so that you understand what the program is doing. You can fix permission denied errors with `chmod u+x <filename>`<br/>
 
 
 
 **<p align = "center"> Part 1, Simulating a single-level file system</p>**
  **<p align = "center"> Background</p>** <br/>
-Linux treats directories as specialized files with extra information, such as references to contained files and the . and .. links. In other words, we can think of a directory as being a special file that has a file name and a size, as well as a list of files contained within. Each file has a file name and contents. This is, of course, and extreme simplification, but it will help you better understand the classes I describe later.  
+Linux treats directories as specialized files with extra information, such as references to contained files and the . and .. links. In other words, we can think of a directory as being a special file that has a file name and a size, as well as a list of files contained within. Each file has a file name and contents. This is, of course, an extreme simplification, but it will help you better understand the classes I describe later.  
 
-The operating system is responsible for helping translate these directories and files into a file system that is human readable. Usually, we have several directories associated with a file system. In our case, we will simplify things by creating a single root directory that contains all files and no subdirectories. This will allow us to look closely at the linux file system API, include the open, close, read, seek, and write operations (at a higher c++ level).
+The operating system is responsible for helping translate these directories and files into a file system that is human readable. Usually, we have several directories associated with a file system. 
+
+In our case, we will simplify things by creating a single root directory that contains all files and no subdirectories. This will allow us to look closely at the linux file system API, include the open, close, read, seek, and write operations (at a higher c++ level).
 
  
 **<p align = "center">General Directions</p>** <br/>
