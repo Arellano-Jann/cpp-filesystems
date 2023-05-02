@@ -45,8 +45,13 @@ Your program should consist of the following files:
 
 You are welcome to add additional files, but the properties of the Directory and File classes should not be changed from the provided description.   
 
-This program should be robust, so you need to implement error checking. The majority of the errors possible in this program surround user data entry, so you will likely want to use [getline](https://www.geeksforgeeks.org/getline-string-c/) to get user string entries. Additionally, to check that user integer entries are valid, you should use the built in [cin](https://www.hackerearth.com/practice/notes/validating-user-input-in-c/) function calls. Personally, I typically check if cin was successful using its return, and if it wasn't, I clear cin and then use the cin ignore method so that random user entry doesn't break the program.  
+### **Use Getline**
+This program should be robust, so you need to implement error checking. The majority of the errors possible in this program surround user data entry, so you will likely want to use [getline](https://www.geeksforgeeks.org/getline-string-c/) to get user string entries. 
 
+### **Use Cin**
+Additionally, to check that user integer entries are valid, you should use the built in [cin](https://www.hackerearth.com/practice/notes/validating-user-input-in-c/) function calls. Personally, I typically check if cin was successful using its return, and if it wasn't, I clear cin and then use the cin ignore method so that random user entry doesn't break the program.  
+
+### **Libraries**
 You may only use the following libraries (using other libraries will result in a 0): <br/>
  ```
  sys (particularly types.h and stat.h)  
@@ -64,7 +69,7 @@ You may only use the following libraries (using other libraries will result in a
 
 
 
-_makefile_<br/>
+_makefile_  
 This will build the program using the __make__ command. If you've forgotten how to construct one, no worries, [here's](https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/) a  good resource from Colby college. Your executable should be named `singleLevelDirectory` <br/><br/>
 
 _File_  
@@ -81,7 +86,6 @@ You should have an explicitly declared default constructor, and you should have 
 In File, I have a method called updateContents. It is responsible for taking existing file contents and concatenating new string entries to the file. You can do that in c++ using the + operator.
 
 
-
 _Directory_    
 Directory is a class that you will declare in `directory.h` and implement in `directory.cpp`. For our purposes, we want to track the following properties: 
 
@@ -93,7 +97,12 @@ number of files in the directory
 
 The maximum number of files we want to be able to hold in a single directory is 1000, which you can use to construct your array of files if you don't want to dynamically allocate them.    
 
-In Directory, I have a method called updateFilesInDirectory. It is responsible for "removing" a deleted file from the file array by copying all elements after the selected entry into the element before and decreasing the number of files in the directory. This will overwrite the position in the array that corresponds to the user entry, and move all following file entries one element.  I also have a method called addFile. That method takes a file and places it at the end of the file array, then increments the number of files in the directory.  
+### **updateFilesInDirectory**
+In Directory, I have a method called updateFilesInDirectory. It is responsible for "removing" a deleted file from the file array by copying all elements after the selected entry into the element before and decreasing the number of files in the directory.
+
+This will overwrite the position in the array that corresponds to the user entry, and move all following file entries one element.  
+### **addFile**
+I also have a method called addFile. That method takes a file and places it at the end of the file array, then increments the number of files in the directory.  
 
 
 
@@ -103,70 +112,108 @@ This will be where your main function is stored. Remember, in C based languages,
 
 
 **<p align = "center">Assignment</p>**
-You must implement the Directory and File classes as described above. You may add additional properties and methods as necessary. Properties should be private.  
+You must implement the Directory and File classes as described above.  
+You may add additional properties and methods as necessary.  
+Properties should be private.  
+
+main.cpp is going to be responsible for the majority of the work we're interested in - the classes are just there to model directory entries and files in the operating system. 
+
+Relevant functionality is outlined below under function name headings. You may ignore my function suggestions, but you _must_ implement the functionality described by each function somewhere in your program so that your code functions in the same way as the executable. 
+
+If I explicitly tell you to use a system call or library call, you must use it somewhere in your code to do the described work.   
 
 
-main.cpp is going to be responsible for the majority of the work we're interested in- the classes are just there to model directory entries and files in the operating system. Relevant functionality is outlined below under function name headings. You may ignore my function suggestions, but you _must_ implement the functionality described by each function somewhere in your program so that your code functions in the same way as the executable. If I explicitly tell you to use a system call or library call, you must use it somewhere in your code to do the described work.   
+_If you haven't already, I suggest running the provided executable so that you can have a general feel for behavior - otherwise these disjointed functionality descriptions may confuse you._
 
+## _int main()_  
+This function is responsible for taking user input and presenting the main program menu (see the executable for what that looks like). I suggest that a default directory is constructed here, and then passed to a helper function to set the directory name and other values. 
 
-_If you haven't already, I suggest running the provided executable so that you can have a general feel for behavior- otherwise these disjointed functionality descriptions may confuse you._
+A switch is also probably easier to use here to filter user input than an if/else cascade.  
 
-_int main()_  
-This function is responsible for taking user input and presenting the main program menu (see the executable for what that looks like). I suggest that a default directory is constructed here, and then passed to a helper function to set the directory name and other values. A switch is also probably easier to use here to filter user input than a if/else cascade.  
-
-_createDirectory_<br/>
+### _createDirectory_
 **Funtionality**: <br/>
 1. Prompt the user for directory name and get input.      
 2. Construct a directory object and set its name using user input.   
-3. Locate your user home directory path. For me, that would be `Users/sarad`. **Do NOT hardcode your home directory in or your code will not run for testing**.    
+3. Locate your user home directory path. 
+    - For me, that would be `Users/sarad`. 
+    - **Do NOT hardcode your home directory in or your code will not run for testing**.    
 
-There are a variety of ways to get the user's home directory. I did it by using [getuid](https://man7.org/linux/man-pages/man2/getuid.2.html) to get the user running the program's uid, and then providing that to [getpwuid](https://pubs.opengroup.org/onlinepubs/009604499/functions/getpwuid.html) to create a [passwd struct](https://pubs.opengroup.org/onlinepubs/009695399/basedefs/pwd.h.html) which has a property that allows you to get the user's home directory path, which you should cast to a string. Then you can append the directory's name to the home directory path, so that the directory is generated in the user's home directory.     
+There are a variety of ways to get the user's home directory. 
+- I did it by using [getuid](https://man7.org/linux/man-pages/man2/getuid.2.html) to get the user running the program's uid, and then 
+- providing that to [getpwuid](https://pubs.opengroup.org/onlinepubs/009604499/functions/getpwuid.html) to create a [passwd struct](https://pubs.opengroup.org/onlinepubs/009695399/basedefs/pwd.h.html) which has a property that allows you to get the user's home directory path, which you should cast to a string. 
+- Then you can append the directory's name to the home directory path, so that the directory is generated in the user's home directory.     
 
 4. Use the path to the directory to check if it exists. This can be done using [stat](https://pubs.opengroup.org/onlinepubs/009696799/functions/stat.html), though there are other ways if you prefer.   
 
-5. If the directory already exists in the user's home, the directory should be loaded, rather than overwritten. Otherwise, the location of the directory should be displayed.  
+5. If the directory already exists in the user's home, 
+    - the directory should be loaded, rather than overwritten. 
+    - Otherwise, the location of the directory should be displayed.  
 
 **Relevant Library Functions and constants**: getpwuid, getuid, c_str()<br/><br/>
 
-_createFile_<br/>
-**Funtionality**:<br/>
-1. Prompt the user for file name, and store it.  
-2. Check if the filename already exists in the directory.  
-3. If the file doesn't exist, create it and prompt the user to add contents to the file if they want. If they want to add contents, get them and add them to the file. Then add the file to the directory object. Note: files should start with a file size of 0 bytes. If the file does exist, tell the user that the file exists.   
+## _createFile_
+**Funtionality**:
+1. Prompt the user for file name, and 
+2. store it.  
+3. Check if the filename already exists in the directory.  
+4. If the file doesn't exist, 
+    - create it and prompt the user to add contents to the file if they want. 
+    - If they want to add contents, get them and add them to the file. 
+    - Then add the file to the directory object. 
+        - Note: files should start with a file size of 0 bytes. 
+    - If the file does exist, tell the user that the file exists.   
+
 **Relevant Library Functions and constants**: cin.clear(), cin.ignore().<br/><br/>
 
 
-_deleteFile_<br/>
+## _deleteFile_<br/>
 **Funtionality**:<br/>
-1. If there are files available to delete, ask the user which file they'd like to delete and display the files that exist in the directory object. Get the user choice.  If there aren't files in the directory, tell the user it's empty.   
-2. Either using the updateFilesInDirectory method outlined above, or your own implementation, overwrite the file that was selected for removal.<br/><br/>
+-  If there are files available to delete, 
+    - ask the user which file they'd like to delete and display the files that exist in the directory object. 
+        - Get the user choice.  
+- If there aren't files in the directory,
+    - tell the user it's empty.   
+- Either using the updateFilesInDirectory method outlined above, or your own implementation, 
+    - overwrite the file that was selected for removal.
 
 
-_addContentsToFile_<br/>
+## _addContentsToFile_<br/>
 **Funtionality**:<br/>
-1. Prompt the user for the data they want to add to the file's contents, and get their entry.   
-2. Update the file's contents by concatenating the old contents with the user entry. I use the updateContents methods that I describe as part of the File class, but you can do it directly from main if you want to.</br></br>
+1. Prompt the user for the data they want to add to the file's contents, and 
+- get their entry.   
+2. Update the file's contents by concatenating the old contents with the user entry. 
+    - I use the updateContents methods that I describe as part of the File class, 
+    - but you can do it directly from main if you want to.
 
 
-_displayDirectoryContent_<br/>
+## _displayDirectoryContent_<br/>
 **Funtionality**: <br/>
-1. If there aren't any files in the directory, tell the user that there aren't any.  
-2. Otherwise, display the directory name, and then iterate through each of the files in the directory to display their name and size.<br/><br/>
+1. If there aren't any files in the directory, 
+    - tell the user that there aren't any.  
+2. Otherwise, display the directory name, and then 
+- iterate through each of the files in the directory to display their name and size.<br/><br/>
 
 
-_displayFileContents_<br/>
+## _displayFileContents_<br/>
 **Funtionality**: <br/>
-1. Display the file name, and then the file contents. <br/><br/>
+1. Display the file name, 
+2. and then the file contents. <br/><br/>
 
 
-_findFile_<br/>
+## _findFile_<br/>
 **Funtionality**: <br/>
-1. Iterate through all of the files in the directory and compare the user entered file name to each file's name in the directory to see if the filename you're looking for already exists in the directory. If it does, return the index of the file. Otherwise return an impossible number to flag for later use.<br/><br/>
+1. Iterate through all of the files in the directory and 
+- compare the user entered file name to each file's name in the directory
+    - to see if the filename you're looking for already exists in the directory. 
+- If it does exist in the directory, return the index of the file. 
+- Otherwise return an impossible number to flag for later use.
 
 
-_getUserInput_<br/>
+## _getUserInput_<br/>
 **Funtionality**: <br/>
-1. I use this function to call getline on the cin stream, and then return the filled string entry from the user.  
+1. I use this function to call getline on the cin stream, 
+- and then return the filled string entry from the user.
+
 **Relevant Library Functions and constants**:getline()<br/><br/>
 
 
