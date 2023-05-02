@@ -214,36 +214,57 @@ There are a variety of ways to get the user's home directory.
 1. I use this function to call getline on the cin stream, 
 - and then return the filled string entry from the user.
 
-**Relevant Library Functions and constants**:getline()<br/><br/>
+**Relevant Library Functions and constants**: getline()
 
 
-_overwriteFile_<br/>
-**Funtionality**: <br/>
-1. If there are files in the directory, display them to the user as a prompt, and then get their entry.  
+## _overwriteFile_
+**Funtionality**:  
+1. If there are files in the directory, 
+    - display them to the user as a prompt, and then 
+    - get their entry.  
 2. Fully replace the existing contents of the file that was selected with the user entry.  
-**Relevant Library Functions and constants**:cin.ignore()<br/><br/>
+**Relevant Library Functions and constants**: cin.ignore()
 
 
-_constructFileSystem_<br/>
-**Funtionality**: <br/>
-1. Get the path to the user's home directory using the method you used to find it to create the path to the directory. Append the directory name to form a full path to the directory from the user home.  
-2. Use the [mkdir](https://linux.die.net/man/1/mkdir) command to create a persistent directory with the same name as your directory. The user who creates the directory should have read, write, and execute privileges. Everyone else should have read permissions. If you do this correctly, you will see the directory appear in your user home directory.   
-3. Iterate through the files stored in the directory object, and concatenate the directory path with the file name to get the file path.  
-4. Use each file path to open a file in the directory that will persist. Then write the contents out to the file.
+## _constructFileSystem_
+**Funtionality**:  
+1. Get the path to the user's home directory 
+    - using the method you used to find it to create the path to the directory. 
+- Append the directory name to form a full path to the directory from the user home.  
+2. Use the [mkdir](https://linux.die.net/man/1/mkdir) command to create a persistent directory with the same name as your directory. 
+    - The user who creates the directory should have read, write, and execute privileges. 
+    - Everyone else should have read permissions. 
+    - If you do this correctly, you will see the directory appear in your user home directory.   
+3. Iterate through the files stored in the directory object, and 
+4.  concatenate the directory path with the file name to get the file path.  
+5. Use each file path to open a file in the directory that will persist. 
+6. Then write the contents out to the file.
+
 **Relevant Library Functions and constants**: ofstream (open, close), mkdir<br/><br/>
 
 
-_loadExistingDir_<br/>
-**Funtionality**: <br/>
-1. After checking to see if a directory with the same name as the one entered by the user for creation exists (described in create directory), get the directory's full path from user home (the way you did earlier).  
+## _loadExistingDir_
+**Funtionality**:
+1. After checking to see if a directory with the same name as the one entered by the user for creation exists (described in create directory), 
+    - get the directory's full path from user home (the way you did earlier).  
 2. Construct a [directory pointer](https://itecnote.com/tecnote/r-open-directory-using-c/) and a [dirent](https://pubs.opengroup.org/onlinepubs/7908799/xsh/dirent.h.html).    
 3. Use the directory pointer to store the return from a call to [opendir](https://man7.org/linux/man-pages/man3/fdopendir.3.html).   
-4. If it the return isn't null, use the [readdir](https://man7.org/linux/man-pages/man3/readdir.3.html) command on the directory pointer and store the return in the dirent struct that you created.  I used a while loop that checked if the call to readdir returned NULL because that will indicate you've reached the end.   
-5. Get the file name from the [directory entry](http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec7.html) and open an input file stream to it in binary using ios::binary. Then use [seekg](https://cplusplus.com/reference/istream/istream/seekg/) to read the file from the start to end.   
-6. Use [tellg](https://cplusplus.com/reference/istream/istream/tellg/) to get the file size. Then clear the input file's stream, and reset seekg to the beginning of the file stream.  
+4. If it the return isn't null, 
+    - use the [readdir](https://man7.org/linux/man-pages/man3/readdir.3.html) command on the directory pointer and 
+    - store the return in the dirent struct that you created.  
+        - I used a while loop that checked if the call to readdir returned NULL because that will indicate you've reached the end.   
+5. Get the file name from the [directory entry](http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch12lev1sec7.html) and 
+6. open an input file stream to it in binary using ios::binary. 
+7. Then use [seekg](https://cplusplus.com/reference/istream/istream/seekg/) to read the file from the start to end.   
+6. Use [tellg](https://cplusplus.com/reference/istream/istream/tellg/) to get the file size. 
+9. Then clear the input file's stream, and 
+10. reset seekg to the beginning of the file stream.  
 7. Use your file stream to read the contents of the file.  
-8. Construct a File object and set its properties. Add the file to the directory.  
-9. Close the file at the end of each iteration. Close the directory using [closedir](https://man7.org/linux/man-pages/man3/closedir.3.html)
+8. Construct a File object and set its properties. 
+13. Add the file to the directory.  
+9. Close the file at the end of each iteration. 
+15. Close the directory using [closedir](https://man7.org/linux/man-pages/man3/closedir.3.html)
+
 **Relevant Library Functions and constants**: directory pointer, dirent, opendir, readdir, seekg, tellg, closedir<br/><br/>
 
 
