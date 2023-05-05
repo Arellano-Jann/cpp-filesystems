@@ -1,8 +1,8 @@
 #include "../headers/file.h"
 
 // cin.clear(), cin.ignore().
-int File::createFile(std::string fileName){
-
+int File::createFile(){
+    file.open(path + "/" + fileName, std::ios::out); // creates file in directory
     return 0;
 }
 

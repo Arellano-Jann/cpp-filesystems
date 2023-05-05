@@ -13,12 +13,13 @@
 class File{
     static std::string path; // full path to directory, set with the setter
     std::string fileName; // filename
+    std::ofstream file; // file stream
 
 public:
     File(std::string fileName) : fileName(fileName){}
 
     // cin.clear(), cin.ignore().
-    int createFile(std::string fileName);
+    int createFile();
     int deleteFile();
     int addContentsToFile();
     int displayFileContents();
