@@ -14,10 +14,10 @@ $(shell mkdir -p $(DIRS))# makes all directories if it's not there
 $(ODIR)/%.o: %.cpp $(DEPS)
     g++ $(CPPFLAGS) -c $< -o $@
 
-main: $(OBJS)
+singleLevelDirectory: $(OBJS)
     g++ $(CPPFLAGS) -o $@ $^
 
 clean:
-    rm $(ODIR)/*.o main *.wav
+    rm $(ODIR)/*.o singleLevelDirectory *.wav
 
 .PHONY: clean all
