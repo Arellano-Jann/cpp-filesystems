@@ -11,15 +11,14 @@
 #include <iostream>
 
 class File{
-    int num;
+    static std::string path; // full path to directory, set with the setter
+    std::string fileName; // filename
 
 public:
-    File(){
-
-    }
+    File(std::string fileName) : fileName(fileName){}
 
     // cin.clear(), cin.ignore().
-    int createFile();
+    int createFile(std::string fileName);
     int deleteFile();
     int addContentsToFile();
     int displayFileContents();
@@ -27,5 +26,8 @@ public:
     // cin.ignore()
     int overwriteFile();
     // ofstream (open, close), mkdir
-    int constructFileSystem();    
+    int constructFileSystem();  
+
+    // setter for path
+    static void setPath(std::string newPath);
 };

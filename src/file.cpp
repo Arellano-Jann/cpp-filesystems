@@ -1,7 +1,8 @@
 #include "../headers/file.h"
 
 // cin.clear(), cin.ignore().
-int File::createFile(){
+int File::createFile(std::string fileName){
+
     return 0;
 }
 
@@ -14,6 +15,7 @@ int File::addContentsToFile(){
 }
 
 int File::displayFileContents(){
+
     return 0;
 }
 
@@ -30,3 +32,7 @@ int File::overwriteFile(){
 int File::constructFileSystem(){
     return 0;
 }
+
+void File::setPath(std::string newPath){
+        path = newPath;
+} 
