@@ -12,12 +12,12 @@ DIRS = $(HDIR) $(CDIR) $(ODIR)
 $(shell mkdir -p $(DIRS))# makes all directories if it's not there
 
 $(ODIR)/%.o: %.cpp $(DEPS)
-    g++ $(CPPFLAGS) -c $< -o $@
+	g++ $(CPPFLAGS) -c $< -o $@
 
 singleLevelDirectory: $(OBJS)
-    g++ $(CPPFLAGS) -o $@ $^
+	g++ $(CPPFLAGS) -o $@ $^
 
 clean:
-    rm $(ODIR)/*.o singleLevelDirectory *.wav
+	rm $(ODIR)/*.o singleLevelDirectory *.wav
 
 .PHONY: clean all
