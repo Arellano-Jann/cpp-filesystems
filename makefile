@@ -18,6 +18,6 @@ singleLevelDirectory: $(OBJS)
 	g++ $(CPPFLAGS) -o $@ $^
 
 clean:
-	rm $(ODIR)/*.o singleLevelDirectory *.wav
+	rm $(ODIR)/*.o singleLevelDirectory
 
 .PHONY: clean all
