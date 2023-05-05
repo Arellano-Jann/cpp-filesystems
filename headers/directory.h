@@ -12,14 +12,12 @@
 
 
 class Directory{
-    int num;
+    std::string directoryName;
 
 public:
-    Directory(){
+    Directory(std::string directoryName) : directoryName(directoryName){}
 
-    }
-
-    int createDirectory(std::string directoryName);
+    int createDirectory();
     int displayDirectoryContent();
 
 };
