@@ -10,7 +10,7 @@ int dirExists(const char* const path) {
 int Directory::createDirectory(){ // getpwuid, getuid, c_str()
     std::string homeDir = (getenv("HOME")) ? getenv("HOME") : getpwuid(getuid())->pw_dir; // sets the home directory if there isn't a default
 
-    std::string path = homeDir + "/" + directoryName;
+    path = homeDir + "/" + directoryName;
 
     if (dirExists(path.c_str())) { // checks if directory already exists
         std::cout << "Directory already exists. Loading directory" << std::endl;
@@ -30,19 +30,25 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 }
 
 int Directory::displayDirectoryContent(){
-    DIR *dir;
-    struct dirent *ent;
-    if ((dir = opendir ("c:\\src\\")) != NULL) {
-        /* print all the files and directories within directory */
-        while ((ent = readdir (dir)) != NULL) {
-            printf ("%s\n", ent->d_name);
-        }
-        closedir (dir);
-    } else {
-        /* could not open directory */
-        perror ("");
-        return EXIT_FAILURE;
+    DIR *dir = opendir (path.c_str());
+    struct dirent *entry;
+
+    // couldn't open directory
+    if (dir == NULL) { return 1; }
+
+    // print directory name
+    printf("%s", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
+
+    // print all files in directory
+    int i = 1;
+    while ((entry = readdir(dir)) != NULL) {
+        printf("\t%i. %s %i bytes\n", i, entry->d_name, entry->d_reclen);
+        i++;
     }
+    printf("\t%i. %s\n\n", i, "Nevermind");
+
+    closedir(dir); // closes the directory
+    return 0;
 
     // this seems like youre finding a specific file
     // int len = strlen(name);
@@ -51,12 +57,11 @@ int Directory::displayDirectoryContent(){
     // while ((dp = readdir(dirp)) != NULL)
     //         if (dp->d_namlen == len && !strcmp(dp->d_name, name)) {
     //                 (void)closedir(dirp);
-    //                 return 1; // found
+    //                 return 0; // found
     //         }
     // (void)closedir(dirp);
-    // return 0; // not found
+    // return 1; // not found
     
-    return 0;
 }
 
 

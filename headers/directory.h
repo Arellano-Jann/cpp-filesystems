@@ -12,7 +12,8 @@
 
 
 class Directory{
-    std::string directoryName;
+    std::string directoryName; // stock directory name
+    std::string path; // full path to directory, set in createDirectory()
 
 public:
     Directory(std::string directoryName) : directoryName(directoryName){}
