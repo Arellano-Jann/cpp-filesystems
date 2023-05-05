@@ -1,8 +1,6 @@
 #pragma once
 #define DIRECTORY_H
 
-#include ""
-
 class Directory{
     int num;
 
@@ -11,8 +9,7 @@ public:
 
     }
 
-    void setNum(int newNum){
-        num = newNum;
-    }    
+    int createDirectory();
+    int displayDirectoryContent();
 
-}
+};

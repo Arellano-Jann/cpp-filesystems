@@ -9,9 +9,14 @@ public:
 
     }
 
-    void setNum(int newNum){
-        num = newNum;
-    }
-
-    
-}
+    // cin.clear(), cin.ignore().
+    int createFile();
+    int deleteFile();
+    int addContentsToFile();
+    int displayFileContents();
+    int findFile();
+    // cin.ignore()
+    int overwriteFile();
+    // ofstream (open, close), mkdir
+    int constructFileSystem();    
+};
