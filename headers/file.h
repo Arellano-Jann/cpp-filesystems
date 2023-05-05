@@ -1,6 +1,15 @@
 #pragma once
 #define FILE_H
 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fstream>
+#include <dirent.h>
+#include <pwd.h>
+#include <unistd.h>
+#include <limits>
+#include <iostream>
+
 class File{
     int num;
 

@@ -1,14 +1,9 @@
 #include "../headers/directory.h"
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fstream>
-#include <dirent.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <limits>
-#include <iostream>
 
-int Directory::createDirectory(){ // getpwuid, getuid, c_str()
+
+int Directory::createDirectory(std::string directoryName){ // getpwuid, getuid, c_str()
+    const char *homedir = (getenv("HOME")) ? getenv("HOME") : getpwuid(getuid())->pw_dir; // sets the home directory if there isn't a default
+
     return 0;
 }
 

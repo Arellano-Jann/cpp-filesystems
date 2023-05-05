@@ -1,12 +1,4 @@
 #include "../headers/file.h"
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fstream>
-#include <dirent.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <limits>
-#include <iostream>
 
 // cin.clear(), cin.ignore().
 int File::createFile(){
