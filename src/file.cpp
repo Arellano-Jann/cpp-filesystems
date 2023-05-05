@@ -1,7 +1,7 @@
 #include "../headers/file.h"
 
 // cin.clear(), cin.ignore().
-int File::createFile(){
+int File::createFile(){ // create empty file
     file.open(path + "/" + fileName, std::ios::out); // creates file in directory
     return 0;
 }
