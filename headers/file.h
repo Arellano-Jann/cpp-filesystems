@@ -18,17 +18,13 @@ class File{
 public:
     File(std::string fileName) : fileName(fileName){}
 
-    // cin.clear(), cin.ignore().
     int createFile();
     int deleteFile();
     int addContentsToFile();
     int displayFileContents();
     int findFile();
-    // cin.ignore()
     int overwriteFile();
-    // ofstream (open, close), mkdir
     int constructFileSystem();  
 
-    // setter for path
-    static void setPath(std::string newPath);
+    static void setPath(std::string newPath); // setter for path
 };
