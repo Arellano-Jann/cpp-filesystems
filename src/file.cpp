@@ -1,8 +1,10 @@
 #include "../headers/file.h"
 
+std::string File::path; // define static variable
+
 // cin.clear(), cin.ignore().
 int File::createFile(){ // create empty file
-    file.open(path + "/" + fileName, std::ios::out); // creates file in directory
+    data.open(path + "/" + fileName, std::ios::out); // creates file in directory
     return 0;
 }
 
@@ -27,12 +29,3 @@ int File::findFile(){
 int File::overwriteFile(){
     return 0;
 }
-
-// ofstream (open, close), mkdir
-int File::constructFileSystem(){
-    return 0;
-}
-
-void File::setPath(std::string newPath){
-        path = newPath;
-} 

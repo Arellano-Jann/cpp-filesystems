@@ -7,11 +7,19 @@ int dirExists(const char* const path) {
     return (statRC == 0) ? 1 : 0; // 1 if exists, 0 if not
 }
 
-long getFileSize(std::string filename){
-    struct stat info;
-    int rc = stat(filename.c_str(), &info);
-    return rc == 0 ? info.st_size : -2;
+long getFileSize(File file){
+    // stat method of checking filesize
+    // struct stat info;
+    // int rc = stat(filename.c_str(), &info);
+    // return rc == 0 ? info.st_size : -2;
+
+    std::string fileName = file.getFileName();
+    std::fstream& filePointer = file.getData();
+    filePointer.open(fileName.c_str(), std::ios::binary | std::ios::ate);
+    return static_cast<long>(filePointer.tellg());
 }
+
+Directory::Directory(std::string directoryName) : directoryName(directoryName){}
 
 int Directory::createDirectory(){ // getpwuid, getuid, c_str()
     std::string homeDir = (getenv("HOME")) ? getenv("HOME") : getpwuid(getuid())->pw_dir; // sets the home directory if there isn't a default
@@ -37,27 +45,30 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
 // doesn't order .. and . properly
 int Directory::displayDirectoryContent(){
-    DIR *dir = opendir (path.c_str());
-    struct dirent *entry;
+    //
 
-    // couldn't open directory
-    if (dir == NULL) { return 1; }
+    // opens local directory and gets file size
+    // DIR *dir = opendir (path.c_str());
+    // struct dirent *entry;
 
-    // print directory name
-    printf("%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
+    // // couldn't open directory
+    // if (dir == NULL) { return 1; }
 
-    // print all files in directory
-    int i = 1;
-    while ((entry = readdir(dir)) != NULL) {
-        long fileSize = getFileSize(path + "/" + entry->d_name);
+    // // print directory name
+    // printf("%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
+
+    // // print all files in directory
+    // int i = 1;
+    // while ((entry = readdir(dir)) != NULL) {
+    //     long fileSize = getFileSize(path + "/" + entry->d_name);
         
-        printf("\t%i. %s %li bytes\n", i, entry->d_name, fileSize);
-        i++;
-    }
-    printf("\t%i. %s\n\n", i, "Nevermind");
+    //     printf("\t%i. %s %li bytes\n", i, entry->d_name, fileSize);
+    //     i++;
+    // }
+    // printf("\t%i. %s\n\n", i, "Nevermind");
 
-    closedir(dir); // closes the directory
-    return 0;
+    // closedir(dir); // closes the directory
+    // return 0;
 
     // this seems like youre finding a specific file
     // int len = strlen(name);
@@ -73,4 +84,16 @@ int Directory::displayDirectoryContent(){
     
 }
 
+int Directory::addFile(){
+    return 0;
+}
+
+int Directory::updateFilesInDirectory(){
+    return 0;
+}
+
+// ofstream (open, close), mkdir
+int Directory::constructFileSystem(){
+    return 0;
+}
 

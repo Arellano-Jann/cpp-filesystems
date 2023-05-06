@@ -13,7 +13,7 @@
 class File{
     static std::string path; // full path to directory, set with the setter
     std::string fileName; // filename
-    std::ofstream file; // file stream
+    std::fstream data; // file stream
 
 public:
     File(std::string fileName) : fileName(fileName){}
@@ -24,7 +24,9 @@ public:
     int displayFileContents();
     int findFile();
     int overwriteFile();
-    int constructFileSystem();  
 
-    static void setPath(std::string newPath); // setter for path
+    static void setPath(std::string newPath){ path = newPath; } // setter for path
+    std::string getPath(){ return path; }
+    std::string getFileName(){ return fileName; }
+    std::fstream& getData(){ return data; }
 };
