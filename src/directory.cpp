@@ -49,6 +49,7 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
     }
 }
 
+// must be -1 on the .. and . files
 int Directory::displayDirectoryContent(){
     // displays fileLIst content
 
@@ -107,11 +108,17 @@ int Directory::displayDirectoryContent(){
     
 }
 
-int Directory::addFile(){
+int Directory::addFile(File file){
+    fileList[numFiles+2] = fileList[numFiles+1];
+    fileList[numFiles+1] = fileList[numFiles];
+    fileList[numFiles] = &file;
     return 0;
 }
 
-int Directory::updateFilesInDirectory(){
+int Directory::removeFile(int fileNum){
+    for (int i = fileNum-1 ; i < numFiles+2; i++) {
+        fileList[i] = fileList[i+1];
+    }
     return 0;
 }
 
@@ -157,6 +164,10 @@ int Directory::loadExistingDir(){
         fileList[i]->overwriteFile(contents);
         // fileList[i]->overwriteFile("testing");
         i++;
+        numFiles++;
+        if (entry->d_name == ".." || entry->d_name == ".") {
+            numFiles--;
+        }
     }
     // printf("here\n");
     
@@ -168,13 +179,10 @@ int Directory::loadExistingDir(){
 }
 
 // cin.clear(), cin.ignore().
-int Directory::createFile(){ // create empty file
-    // data.open(path + "/" + fileName, std::ios::out); // creates file in directory
-    // data.close();
-    return 0;
-}
-
-int Directory::deleteFile(){
+int Directory::createFile(File file){ // create file from fileLIst
+    std::fstream outFile(path + "/" + file.getFileName(), std::ios::out); // creates file in directory
+    outFile << file.getData();
+    outFile.close();
     return 0;
 }
 
