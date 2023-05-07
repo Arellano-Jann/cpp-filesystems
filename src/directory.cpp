@@ -169,7 +169,7 @@ int Directory::loadExistingDir(){
             contents += line;
             // contents += line + "\n";
         }
-        printf("Contents: %s\n", contents.c_str()); // might have an error here with saving the contents to the file. 
+        // printf("Contents: %s\n", contents.c_str()); // might have an error here with saving the contents to the file. 
 
         fileList[i] = new File(entry->d_name);
         fileList[i]->overwriteFile(contents);
