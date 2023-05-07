@@ -21,12 +21,13 @@ long getFileSize(File* file){
 }
 
 // 
-Directory::Directory(std::string directoryName) : directoryName(directoryName){}
-
-int Directory::createDirectory(){ // getpwuid, getuid, c_str()
+Directory::Directory(std::string directoryName) : directoryName(directoryName){
     std::string homeDir = (getenv("HOME")) ? getenv("HOME") : getpwuid(getuid())->pw_dir; // sets the home directory if there isn't a default
 
     path = homeDir + "/" + directoryName;
+}
+
+int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
     if (dirExists(path.c_str())) { // checks if directory already exists
         printf("Loading existing directory\n\n");
