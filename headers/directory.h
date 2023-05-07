@@ -19,6 +19,8 @@ class Directory{
     File* fileList[1000]; // array of files in the directory
     int numFiles = 0; // num files without . and ..
 
+    int createFile(File file); // create file into local directory
+    int loadExistingDir(); // directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
 
 public:
     Directory(std::string directoryName);
@@ -29,9 +31,7 @@ public:
     int addFile(File file); // addsFile to the fileList. dynamically moves . and ..
     int removeFile(int fileNum); // updates the fileList when removing a file. shifts everything over to the left
     int constructFileSystem(); // ofstream (open, close), mkdir // creates the file system locally
-    int loadExistingDir(); // directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
 
-    int createFile(File file); // create file into local directory
     int addToFile(int fileNum, std::string contents); // find file with int fileNum
     int overwriteFile(int fileNum, std::string contents); // find file with int fileNum
 
