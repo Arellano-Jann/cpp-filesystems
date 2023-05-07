@@ -17,7 +17,7 @@ class Directory{
     std::string path; // full path to directory, set in createDirectory()
 
     File* fileList[1000]; // array of files in the directory
-    int numFiles = 0;
+    int numFiles = 0; // num files without . and ..
 
 
 public:
@@ -25,8 +25,9 @@ public:
 
     int createDirectory(); // getpwuid, getuid, c_str() // pulls from directoryName and makes a local directory
     int displayDirectoryContent(); // displays fileList
-    int addFile(File file); // addsFile to the fileList
-    int removeFile(int fileNum); // updates the fileList when removing a file
+    int displayFileContents(int fileNum); // displays file contents
+    int addFile(File file); // addsFile to the fileList. dynamically moves . and ..
+    int removeFile(int fileNum); // updates the fileList when removing a file. shifts everything over to the left
     int constructFileSystem(); // ofstream (open, close), mkdir // creates the file system locally
     int loadExistingDir(); // directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
 

@@ -108,6 +108,11 @@ int Directory::displayDirectoryContent(){
     
 }
 
+int Directory::displayFileContents(int fileNum){
+    fileList[fileNum]->displayFileContents();
+    return 0;
+}
+
 int Directory::addFile(File file){
     fileList[numFiles+2] = fileList[numFiles+1];
     fileList[numFiles+1] = fileList[numFiles];
@@ -124,6 +129,12 @@ int Directory::removeFile(int fileNum){
 
 // ofstream (open, close), mkdir
 int Directory::constructFileSystem(){
+    for (int i = 0; i < numFiles; i++) {
+        createFile(*fileList[i]);
+        // std::fstream outFile(path + "/" + fileList[i]->getFileName(), std::ios::out); // creates file in directory
+        // outFile << fileList[i]->getData();
+        // outFile.close();
+    }
     return 0;
 }
 
