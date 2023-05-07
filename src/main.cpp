@@ -6,6 +6,34 @@ int getUserInput(){
     return 0;
 }
 
+void createFile(){
+    
+}
+
+void deleteFile(){
+    
+}
+
+void addContents(){
+    
+}
+
+void overwriteFile(){
+    
+}
+
+void displayDirectory(){
+    
+}
+
+void displayFile(){
+    
+}
+
+void displayMenu(){
+    
+}
+
 int main(){
     // int i = 1;
     // char d_name[256] = "stuff";
@@ -16,7 +44,7 @@ int main(){
 
     std::string path = "test";
     Directory d(path);
-    // File::setPath(d.getPath());
     d.createDirectory();
     d.displayDirectoryContent();
+
 }
