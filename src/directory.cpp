@@ -186,6 +186,12 @@ int Directory::createFile(File file){ // create file from fileLIst
     return 0;
 }
 
-int Directory::findFile(){
+int Directory::addToFile(int fileNum, std::string contents){
+    fileList[fileNum]->addContentsToFile(contents);
+    return 0;
+}
+
+int Directory::overwriteFile(int fileNum, std::string contents){
+    fileList[fileNum]->overwriteFile(contents);
     return 0;
 }

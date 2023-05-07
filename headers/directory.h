@@ -31,7 +31,8 @@ public:
     int loadExistingDir(); // directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
 
     int createFile(File file); // create file into local directory
-    int findFile(); // helper function for finding if a file exists in the directory
+    int addToFile(int fileNum, std::string contents); // find file with int fileNum
+    int overwriteFile(int fileNum, std::string contents); // find file with int fileNum
 
     std::string getPath(){ return path; }
     std::string getDirectoryName(){ return directoryName; }
