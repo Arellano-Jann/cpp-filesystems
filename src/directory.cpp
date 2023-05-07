@@ -115,11 +115,21 @@ int Directory::displayFileContents(int fileNum){
 }
 
 int Directory::addFile(File file){
+    for (int i = 0; i < numFiles+2; i++) {
+        std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    }
     fileList[numFiles+2] = fileList[numFiles+1];
     fileList[numFiles+1] = fileList[numFiles];
     fileList[numFiles] = &file;
     numFiles++;
-    std::cout << "Filename: " << numFiles << file.getFileName() << " : "  << file.getData() << std::endl;
+    // std::cout << "Filename: " << numFiles << file.getFileName() << " : "  << file.getData() << std::endl;
+
+    // print out whole filelist with file names and data
+    printf("after: \n");
+    for (int i = 0; i < numFiles+2; i++) {
+        std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    }
+
     return 0;
 }
 
@@ -179,10 +189,12 @@ int Directory::loadExistingDir(){
         // fileList[i]->overwriteFile("testing");
         i++;
         numFiles++;
-        if (entry->d_name == ".." || entry->d_name == ".") {
-            numFiles--;
-        }
+        // if (entry->d_name == ".." || entry->d_name == ".") { // does not go through ".." and "." for some reason
+        //     printf("in -- loaddir");
+        //     numFiles--;
+        // }
     }
+    numFiles -= 2; // adjusts for the .. and . files
     // printf("here\n");
     
     // std::string test = "stuff";
@@ -194,7 +206,7 @@ int Directory::loadExistingDir(){
 
 // cin.clear(), cin.ignore().
 int Directory::createFile(File file){ // create file from fileLIst
-    std::cout << path + "/" + file.getFileName() << std::endl;
+    std::cout << "Created: " << path + "/" + file.getFileName() << " : " << file.getData() << std::endl;
     std::fstream outFile(path + "/" + file.getFileName(), std::ios::out); // creates file in directory
     outFile << file.getData();
     outFile.close();

@@ -16,6 +16,7 @@ void createFile(Directory d){
     // above needs to persist if y or n is not entered
     if (contentFlag == "y" || contentFlag == "Y"){
         std::string contents = getUserInput("Enter the information you'd like to write to the file: \n");
+        printf("\n");
         newFile->overwriteFile(contents);
     }
     d.addFile(*newFile);
