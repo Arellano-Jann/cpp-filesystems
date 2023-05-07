@@ -16,5 +16,5 @@ int main(){
 
     Directory d("test");
     d.createDirectory();
-    // d.displayDirectoryContent();
+    d.displayDirectoryContent();
 }

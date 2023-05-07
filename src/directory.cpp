@@ -50,10 +50,15 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
 // doesn't order .. and . properly
 int Directory::displayDirectoryContent(){
-    // displays fileLIst conetnt
+    // displays fileLIst content
+
+    printf("%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
     for (int i = 0; i < 1000; i++) {
         if (fileList[i] != NULL){
             printf("\t%i. %s %li bytes\n", i+1, fileList[i]->getFileName().c_str(), getFileSize(fileList[i]));
+        } else {
+            printf("\t%i. %s\n\n", i+1, "Nevermind");
+            break;
         }
     }
     return 0;
