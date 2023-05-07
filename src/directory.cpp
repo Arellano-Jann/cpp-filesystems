@@ -53,7 +53,7 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 int Directory::displayDirectoryContent(){
     // displays fileLIst content
 
-    printf("%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
+    printf("\n%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
 
     // printf("\t%i. %s %i bytes\n", 1, "..", 1);
     // printf("\t%i. %s %i bytes\n", 2, ".", -1);
@@ -109,6 +109,7 @@ int Directory::displayDirectoryContent(){
 }
 
 int Directory::displayFileContents(int fileNum){
+    std::cout << fileList[fileNum]->getFileName() << ":" << std::endl;
     fileList[fileNum]->displayFileContents();
     return 0;
 }
@@ -117,6 +118,8 @@ int Directory::addFile(File file){
     fileList[numFiles+2] = fileList[numFiles+1];
     fileList[numFiles+1] = fileList[numFiles];
     fileList[numFiles] = &file;
+    numFiles++;
+    std::cout << "Filename: " << numFiles << file.getFileName() << " : "  << file.getData() << std::endl;
     return 0;
 }
 
@@ -191,6 +194,7 @@ int Directory::loadExistingDir(){
 
 // cin.clear(), cin.ignore().
 int Directory::createFile(File file){ // create file from fileLIst
+    std::cout << path + "/" + file.getFileName() << std::endl;
     std::fstream outFile(path + "/" + file.getFileName(), std::ios::out); // creates file in directory
     outFile << file.getData();
     outFile.close();

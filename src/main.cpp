@@ -39,11 +39,15 @@ void overwriteFile(Directory d){
 }
 
 void displayDirectory(Directory d){
+    printf("\n");
     d.displayDirectoryContent();
 }
 
 void displayFile(Directory d){
+    printf("\nWhich file would you like to display?\n");
+    displayDirectory(d);
     int fileNum = std::stoi(getUserInput());
+    printf("\n");
     d.displayFileContents(fileNum);
 }
 
@@ -97,7 +101,7 @@ int main(){
     // printf("\t%i. %s\n\n", i, "Nevermind");
 
     printf("\nLet's create a directory!\n");
-    std::string directoryName = getUserInput("Enter directory name: ");
+    // std::string directoryName = getUserInput("Enter directory name: ");
     std::string path = "test";
     Directory d(path);
     d.createDirectory();
