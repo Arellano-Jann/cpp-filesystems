@@ -48,41 +48,43 @@ void displayFile(Directory d){
 }
 
 void displayMenu(Directory d){
-    printf("1. Create File\n");
-    printf("2. Delete File\n");
-    printf("3. Add Contents to File\n");
-    printf("4. Overwrite File\n");
-    printf("5. Display Directory Contents\n");
-    printf("6. Display File Contents\n");
-    printf("0. Exit\n");
+    while (true){
+        printf("\n1. Create File\n");
+        printf("2. Delete File\n");
+        printf("3. Add Contents to File\n");
+        printf("4. Overwrite File\n");
+        printf("5. Display Directory Contents\n");
+        printf("6. Display File Contents\n");
+        printf("0. Exit\n");
 
-    printf("\nWhat would you like to do? \n");
-    switch (std::stoi(getUserInput())){
-        case 1:
-            createFile(d);
-            break;
-        case 2:
-            deleteFile(d);
-            break;
-        case 3:
-            addContents(d);
-            break;
-        case 4:
-            overwriteFile(d);
-            break;
-        case 5:
-            displayDirectory(d);
-            break;
-        case 6:
-            displayFile(d);
-            break;
-        case 0:
-            d.constructFileSystem();
-            exit(0);
-            break;
-        default:
-            printf("Invalid input\n");
-            break;
+        printf("\nWhat would you like to do? ");
+        switch (std::stoi(getUserInput())){
+            case 1:
+                createFile(d);
+                break;
+            case 2:
+                deleteFile(d);
+                break;
+            case 3:
+                addContents(d);
+                break;
+            case 4:
+                overwriteFile(d);
+                break;
+            case 5:
+                displayDirectory(d);
+                break;
+            case 6:
+                displayFile(d);
+                break;
+            case 0:
+                d.constructFileSystem();
+                exit(0);
+                break;
+            default:
+                printf("Invalid input\n");
+                break;
+        }
     }
 }
 

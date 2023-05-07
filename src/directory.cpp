@@ -30,7 +30,7 @@ Directory::Directory(std::string directoryName) : directoryName(directoryName){
 int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
     if (dirExists(path.c_str())) { // checks if directory already exists
-        printf("Loading existing directory\n\n");
+        printf("Loading existing directory\n");
         // printf("here\n");
         loadExistingDir();
         // printf("here\n");
