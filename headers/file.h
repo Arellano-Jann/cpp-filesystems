@@ -11,27 +11,27 @@
 #include <iostream>
 
 class File{
-    static std::string path; // full path to directory, set with the setter
+    // static std::string path; // full path to directory, set with the setter
     std::string fileName; // filename
-    std::fstream data; // file stream
+    std::string data; // file stream
+    // std::fstream data; // file stream
 
 public:
     File(std::string fileName) : fileName(fileName){}
 
-    int createFile();
-    int deleteFile();
-    int addContentsToFile();
+    int addContentsToFile(std::string contents);
     int displayFileContents();
-    int findFile();
     int overwriteFile(std::string newData);
 
-    static void setPath(std::string newPath){ path = newPath; } // setter for path
-    std::string getPath(){ return path; }
+    // static void setPath(std::string newPath){ path = newPath; } // setter for path
+    // std::string getPath(){ return path; }
     std::string getFileName(){ return fileName; }
-    std::fstream& getData(){ return data; }
+    std::string getData(){ return data; }
+    // std::fstream& getData(){ return data; }
     long getFileSize(){ 
-        data.open(fileName.c_str(), std::ios::binary | std::ios::ate);
-        // return static_cast<long>(data.tellg());
-        return data.tellg();
+        return data.size() * sizeof(char);
+        // data.open(fileName.c_str(), std::ios::binary | std::ios::ate);
+        // // return static_cast<long>(data.tellg());
+        // return data.tellg();
     }
 };

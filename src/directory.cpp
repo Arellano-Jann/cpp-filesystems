@@ -149,6 +149,7 @@ int Directory::loadExistingDir(){
         std::string line;
         while (std::getline(inputFile, line)) {
             contents += line;
+            // contents += line + "\n";
         }
         printf("Contents: %s\n", contents.c_str()); // might have an error here with saving the contents to the file. 
 
@@ -163,5 +164,20 @@ int Directory::loadExistingDir(){
     // printf("%s", test.c_str());
 
     closedir(dir); // closes the directory
+    return 0;
+}
+
+// cin.clear(), cin.ignore().
+int Directory::createFile(){ // create empty file
+    // data.open(path + "/" + fileName, std::ios::out); // creates file in directory
+    // data.close();
+    return 0;
+}
+
+int Directory::deleteFile(){
+    return 0;
+}
+
+int Directory::findFile(){
     return 0;
 }

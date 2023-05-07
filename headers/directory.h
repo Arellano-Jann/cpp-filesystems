@@ -29,6 +29,10 @@ public:
     int constructFileSystem(); // ofstream (open, close), mkdir // creates the file system locally
     int loadExistingDir(); // directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
 
+    int createFile();
+    int deleteFile();
+    int findFile();
+
     std::string getPath(){ return path; }
     std::string getDirectoryName(){ return directoryName; }
     File** getFileList(){ return fileList; }
