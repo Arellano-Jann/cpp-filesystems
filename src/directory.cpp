@@ -48,16 +48,21 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
     }
 }
 
-// doesn't order .. and . properly
 int Directory::displayDirectoryContent(){
     // displays fileLIst content
 
     printf("%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
+
+    printf("\t%i. %s %i bytes\n", 1, "..", 1);
+    printf("\t%i. %s %i bytes\n", 2, ".", -1);
     for (int i = 0; i < 1000; i++) {
-        if (fileList[i] != NULL){
-            printf("\t%i. %s %li bytes\n", i+1, fileList[i]->getFileName().c_str(), getFileSize(fileList[i]));
+        if (fileList[i]->getFileName() == "..") {
+            printf("\t%i. %s\n\n", i+3, "Nevermind");
+            break;
+        } else if (fileList[i] != NULL){
+            printf("\t%i. %s %li bytes\n", i+3, fileList[i]->getFileName().c_str(), getFileSize(fileList[i]));
         } else {
-            printf("\t%i. %s\n\n", i+1, "Nevermind");
+            printf("\t%i. %s\n\n", i+3, "Nevermind");
             break;
         }
     }
