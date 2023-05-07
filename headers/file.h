@@ -31,6 +31,7 @@ public:
     std::fstream& getData(){ return data; }
     long getFileSize(){ 
         data.open(fileName.c_str(), std::ios::binary | std::ios::ate);
-        return static_cast<long>(data.tellg());
+        // return static_cast<long>(data.tellg());
+        return data.tellg();
     }
 };

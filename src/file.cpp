@@ -28,8 +28,17 @@ int File::findFile(){
 
 // cin.ignore()
 int File::overwriteFile(std::string newData){
+    std::cout << "overWritePath: " << path << "/" << fileName << std::endl;
     data.open(path + "/" + fileName, std::ios::out | std::ios::trunc); // creates file in directory
     data << newData;
+    std::cout << "Overwriting with: " << newData << std::endl;
+
+    // std::cout << "File contents: " << std::endl;
+    // char c;
+    // while (data.get(c)) {
+    //     std::cout << c;
+    // }
+
     data.close();
     return 0;
 }

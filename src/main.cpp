@@ -16,7 +16,7 @@ int main(){
 
     std::string path = "test";
     Directory d(path);
-    File::setPath(d.getPath());
     d.createDirectory();
+    File::setPath(d.getPath());
     d.displayDirectoryContent();
 }

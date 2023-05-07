@@ -30,9 +30,9 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
     if (dirExists(path.c_str())) { // checks if directory already exists
         printf("Loading existing directory\n\n");
-        printf("here\n");
+        // printf("here\n");
         loadExistingDir();
-        printf("here\n");
+        // printf("here\n");
         return 1;
     }
 
@@ -124,7 +124,7 @@ int Directory::loadExistingDir(){
     // opens local directory and gets file size
     DIR *dir = opendir (path.c_str());
     struct dirent *entry;
-    printf("here\n");
+    // printf("here\n");
 
     // couldn't open directory
     if (dir == NULL) { return 1; }
@@ -132,19 +132,31 @@ int Directory::loadExistingDir(){
     // iterate through all files in the directory
     int i = 0;
     while ((entry = readdir(dir)) != NULL) {
-        printf("here%i%s\n", i, entry->d_name);
-        std::ifstream inputFile(entry->d_name);
+        // printf("here%i%s\n", i, entry->d_name);
+        // std::string temp = path + "/" + entry->d_name;
+        // printf(temp.c_str());
+
+        std::ifstream inputFile(path + "/" + entry->d_name);
+        // inputFile.open((entry->d_name));
+        // std::cout << entry->d_name << " File contents: " << std::endl;
+        // char c;
+        // while (inputFile.get(c)) {
+        //     std::cout << c << std::endl;
+        // }
 
         std::string contents;
-        while (std::getline(inputFile, contents)) {
-            contents += contents;
+        std::string line;
+        while (std::getline(inputFile, line)) {
+            contents += line;
         }
-        printf("%s", contents.c_str()); // might have an error here with saving the contents to the file
+        printf("Contents: %s\n", contents.c_str()); // might have an error here with saving the contents to the file. 
 
         fileList[i] = new File(entry->d_name);
         fileList[i]->overwriteFile(contents);
+        // fileList[i]->overwriteFile("testing");
         i++;
-    }printf("here\n");
+    }
+    // printf("here\n");
     
     // std::string test = "stuff";
     // printf("%s", test.c_str());
