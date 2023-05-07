@@ -22,11 +22,11 @@ class Directory{
 public:
     Directory(std::string directoryName);
 
-    int createDirectory(); // getpwuid, getuid, c_str()
-    int displayDirectoryContent();
-    int addFile();
-    int updateFilesInDirectory();
-    int constructFileSystem(); // ofstream (open, close), mkdir
+    int createDirectory(); // getpwuid, getuid, c_str() // pulls from directoryName and makes a local directory
+    int displayDirectoryContent(); // displays fileList
+    int addFile(); // addsFile to the fileList
+    int updateFilesInDirectory(); // updates the fileList when removing a file
+    int constructFileSystem(); // ofstream (open, close), mkdir // creates the file system locally
     int loadExistingDir(); // directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
 
     std::string getPath(){ return path; }

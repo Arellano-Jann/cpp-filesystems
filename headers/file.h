@@ -23,10 +23,14 @@ public:
     int addContentsToFile();
     int displayFileContents();
     int findFile();
-    int overwriteFile();
+    int overwriteFile(std::string newData);
 
     static void setPath(std::string newPath){ path = newPath; } // setter for path
     std::string getPath(){ return path; }
     std::string getFileName(){ return fileName; }
     std::fstream& getData(){ return data; }
+    long getFileSize(){ 
+        data.open(fileName.c_str(), std::ios::binary | std::ios::ate);
+        return static_cast<long>(data.tellg());
+    }
 };

@@ -7,18 +7,20 @@ int dirExists(const char* const path) {
     return (statRC == 0) ? 1 : 0; // 1 if exists, 0 if not
 }
 
-long getFileSize(File file){
+long getFileSize(File* file){
     // stat method of checking filesize
     // struct stat info;
     // int rc = stat(filename.c_str(), &info);
     // return rc == 0 ? info.st_size : -2;
 
-    std::string fileName = file.getFileName();
-    std::fstream& filePointer = file.getData();
-    filePointer.open(fileName.c_str(), std::ios::binary | std::ios::ate);
-    return static_cast<long>(filePointer.tellg());
+    // std::string fileName = file->getFileName();
+    // std::fstream& filePointer = file->getData();
+    // filePointer.open(fileName.c_str(), std::ios::binary | std::ios::ate);
+    // return static_cast<long>(filePointer.tellg());
+    return file->getFileSize();
 }
 
+// 
 Directory::Directory(std::string directoryName) : directoryName(directoryName){}
 
 int Directory::createDirectory(){ // getpwuid, getuid, c_str()
@@ -28,6 +30,9 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
     if (dirExists(path.c_str())) { // checks if directory already exists
         printf("Loading existing directory\n\n");
+        printf("here\n");
+        loadExistingDir();
+        printf("here\n");
         return 1;
     }
 
@@ -45,7 +50,13 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 
 // doesn't order .. and . properly
 int Directory::displayDirectoryContent(){
-    //
+    // displays fileLIst conetnt
+    for (int i = 0; i < 1000; i++) {
+        if (fileList[i] != NULL){
+            printf("\t%i. %s %li bytes\n", i+1, fileList[i]->getFileName().c_str(), getFileSize(fileList[i]));
+        }
+    }
+    return 0;
 
     // opens local directory and gets file size
     // DIR *dir = opendir (path.c_str());
@@ -97,3 +108,36 @@ int Directory::constructFileSystem(){
     return 0;
 }
 
+// directory pointer, dirent, opendir, readdir, seekg, tellg, closedir
+int Directory::loadExistingDir(){
+    // opens local directory and gets file size
+    DIR *dir = opendir (path.c_str());
+    struct dirent *entry;
+    printf("here\n");
+
+    // couldn't open directory
+    if (dir == NULL) { return 1; }
+
+    // iterate through all files in the directory
+    int i = 0;
+    while ((entry = readdir(dir)) != NULL) {
+        printf("here%i%s\n",i,entry->d_name);
+        std::ifstream inputFile(entry->d_name);
+
+        std::string contents;
+        while (std::getline(inputFile, contents)) {
+            contents += contents;
+        }
+        printf("%s", contents.c_str()); // might have an error here with saving the contents to the file
+
+        fileList[i] = new File(entry->d_name);
+        fileList[i]->overwriteFile(contents);
+        i++;
+    }printf("here\n");
+    
+    // std::string test = "stuff";
+    // printf("%s", test.c_str());
+
+    closedir(dir); // closes the directory
+    return 0;
+}
