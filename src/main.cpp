@@ -14,7 +14,9 @@ int main(){
     // i++;
     // printf("\t%i. %s\n\n", i, "Nevermind");
 
-    Directory d("test");
+    std::string path = "test";
+    Directory d(path);
+    File::setPath(d.getPath());
     d.createDirectory();
     d.displayDirectoryContent();
 }
