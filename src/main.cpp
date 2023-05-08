@@ -9,7 +9,7 @@ std::string getUserInput(std::string prompt = ""){
     return input;
 }
 
-void createFile(Directory d){
+void createFile(Directory& d){
     std::string fileName = getUserInput("Enter the name of the file you'd like to add: \n");
     File* newFile = new File(fileName);
     std::string contentFlag = getUserInput("Would you like to write anything to the file?\nY. Yes\nN. No\n");
@@ -20,31 +20,36 @@ void createFile(Directory d){
         newFile->overwriteFile(contents);
     }
     d.addFile(*newFile);
+    File** newFileList = d.getFileList();
+    // prints new filesystem
+    for (int i = 0; i < d.getNumFiles(); i++){
+        printf("%i. %s\n", i, newFileList[i]->getFileName().c_str());
+    }
 }
 
-void deleteFile(Directory d){
+void deleteFile(Directory& d){
     int fileNum = std::stoi(getUserInput());
     d.removeFile(fileNum);
 }
 
-void addContents(Directory d){
+void addContents(Directory& d){
     int fileNum = std::stoi(getUserInput());
     std::string contents = getUserInput();
     d.addToFile(fileNum, contents);
 }
 
-void overwriteFile(Directory d){
+void overwriteFile(Directory& d){
     int fileNum = std::stoi(getUserInput());
     std::string contents = getUserInput();
     d.overwriteFile(fileNum, contents);
 }
 
-void displayDirectory(Directory d){
+void displayDirectory(Directory& d){
     printf("\n");
     d.displayDirectoryContent();
 }
 
-void displayFile(Directory d){
+void displayFile(Directory& d){
     printf("\nWhich file would you like to display?\n");
     displayDirectory(d);
     int fileNum = std::stoi(getUserInput());
@@ -52,7 +57,7 @@ void displayFile(Directory d){
     d.displayFileContents(fileNum);
 }
 
-void displayMenu(Directory d){
+void displayMenu(Directory& d){
     while (true){
         printf("\n1. Create File\n");
         printf("2. Delete File\n");

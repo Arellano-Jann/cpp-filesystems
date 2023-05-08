@@ -114,7 +114,7 @@ int Directory::displayFileContents(int fileNum){
     return 0;
 }
 
-int Directory::addFile(File file){
+int Directory::addFile(File &file){
     for (int i = 0; i < numFiles+2; i++) {
         std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
     }
@@ -142,6 +142,12 @@ int Directory::removeFile(int fileNum){
 
 // ofstream (open, close), mkdir
 int Directory::constructFileSystem(){
+    printf("Num Files: %i\n", numFiles);
+
+    for (int i = 0; i < numFiles; i++) {
+        std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    }
+
     for (int i = 0; i < numFiles; i++) {
         createFile(*fileList[i]);
         // std::fstream outFile(path + "/" + fileList[i]->getFileName(), std::ios::out); // creates file in directory
@@ -205,7 +211,7 @@ int Directory::loadExistingDir(){
 }
 
 // cin.clear(), cin.ignore().
-int Directory::createFile(File file){ // create file from fileLIst
+int Directory::createFile(File &file){ // create file from fileLIst
     std::cout << "Created: " << path + "/" + file.getFileName() << " : " << file.getData() << std::endl;
     std::fstream outFile(path + "/" + file.getFileName(), std::ios::out); // creates file in directory
     outFile << file.getData();
