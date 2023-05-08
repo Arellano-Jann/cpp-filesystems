@@ -29,6 +29,7 @@ public:
     std::string getData(){ return data; }
     // std::fstream& getData(){ return data; }
     long getFileSize(){ 
+        if (fileName == "." || fileName == ".."){ return -1; }
         return data.size() * sizeof(char);
         // data.open(fileName.c_str(), std::ios::binary | std::ios::ate);
         // // return static_cast<long>(data.tellg());
