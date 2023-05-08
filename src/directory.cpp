@@ -50,7 +50,7 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
 }
 
 // must be -1 on the .. and . files
-int Directory::displayDirectoryContent(){
+int Directory::displayDirectoryContent(int flag){
     // displays fileLIst content
 
     printf("\n%s\n", directoryName.c_str()); // better than printf(directoryName.c_str()) bc it's more secure
@@ -64,10 +64,10 @@ int Directory::displayDirectoryContent(){
         // } else 
         if (fileList[i] != NULL){
             printf("\t%i. %s %li bytes\n", i+1, fileList[i]->getFileName().c_str(), getFileSize(fileList[i]));
-        } else {
+        } else if (flag) {
             printf("\t%i. %s\n\n", i+1, "Nevermind");
             break;
-        }
+        } else { break; }
     }
     return 0;
 
@@ -115,8 +115,15 @@ int Directory::displayFileContents(int fileNum){
 }
 
 int Directory::addFile(File &file){
-    for (int i = 0; i < numFiles+2; i++) {
-        std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    // for (int i = 0; i < numFiles+2; i++) {
+    //     std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    // }
+    // check if file already exists
+    for (int i = 0; i < numFiles; i++) {
+        if (fileList[i]->getFileName() == file.getFileName()) {
+            printf("File already exists.\n");
+            return 1;
+        }
     }
     fileList[numFiles+2] = fileList[numFiles+1];
     fileList[numFiles+1] = fileList[numFiles];
@@ -125,10 +132,10 @@ int Directory::addFile(File &file){
     // std::cout << "Filename: " << numFiles << file.getFileName() << " : "  << file.getData() << std::endl;
 
     // print out whole filelist with file names and data
-    printf("after: \n");
-    for (int i = 0; i < numFiles+2; i++) {
-        std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
-    }
+    // printf("after: \n");
+    // for (int i = 0; i < numFiles+2; i++) {
+    //     std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    // }
 
     return 0;
 }
@@ -137,16 +144,17 @@ int Directory::removeFile(int fileNum){
     for (int i = fileNum-1 ; i < numFiles+2; i++) {
         fileList[i] = fileList[i+1];
     }
+    numFiles--;
     return 0;
 }
 
 // ofstream (open, close), mkdir
 int Directory::constructFileSystem(){
-    printf("Num Files: %i\n", numFiles);
+    // printf("Num Files: %i\n", numFiles);
 
-    for (int i = 0; i < numFiles; i++) {
-        std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
-    }
+    // for (int i = 0; i < numFiles; i++) {
+    //     std::cout << numFiles << i << " Filename: " << fileList[i]->getFileName() << " : "  << fileList[i]->getData() << std::endl;
+    // }
 
     for (int i = 0; i < numFiles; i++) {
         createFile(*fileList[i]);

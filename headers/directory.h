@@ -26,7 +26,7 @@ public:
     Directory(std::string directoryName);
 
     int createDirectory(); // getpwuid, getuid, c_str() // pulls from directoryName and makes a local directory
-    int displayDirectoryContent(); // displays fileList
+    int displayDirectoryContent(int flag = 1); // displays fileList
     int displayFileContents(int fileNum); // displays file contents
     int addFile(File &file); // addsFile to the fileList. dynamically moves . and ..
     int removeFile(int fileNum); // updates the fileList when removing a file. shifts everything over to the left

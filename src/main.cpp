@@ -20,40 +20,49 @@ void createFile(Directory& d){
         newFile->overwriteFile(contents);
     }
     d.addFile(*newFile);
-    File** newFileList = d.getFileList();
-    // prints new filesystem
-    for (int i = 0; i < d.getNumFiles(); i++){
-        printf("%i. %s\n", i, newFileList[i]->getFileName().c_str());
-    }
+    // File** newFileList = d.getFileList();
+    // // prints new filesystem
+    // for (int i = 0; i < d.getNumFiles(); i++){
+    //     printf("%i. %s\n", i, newFileList[i]->getFileName().c_str());
+    // }
 }
 
 void deleteFile(Directory& d){
-    int fileNum = std::stoi(getUserInput());
+    printf("Which file would you like to delete?\n");
+    d.displayDirectoryContent();
+    int fileNum = std::stoi(getUserInput()) - 1;
     d.removeFile(fileNum);
 }
 
 void addContents(Directory& d){
-    int fileNum = std::stoi(getUserInput());
-    std::string contents = getUserInput();
+    printf("\nWhich file would you like to display?\n");
+    d.displayDirectoryContent();
+    int fileNum = std::stoi(getUserInput()) - 1;
+    std::string contents = getUserInput("Enter the contents to add: ");
     d.addToFile(fileNum, contents);
 }
 
 void overwriteFile(Directory& d){
-    int fileNum = std::stoi(getUserInput());
-    std::string contents = getUserInput();
+    printf("\nWhich file would you like to overwrite?\n");
+    d.displayDirectoryContent();
+    int fileNum = std::stoi(getUserInput()) - 1;
+    std::string contents = getUserInput("Enter the content to overwrite the file with: ");
     d.overwriteFile(fileNum, contents);
 }
 
 void displayDirectory(Directory& d){
     printf("\n");
-    d.displayDirectoryContent();
+    d.displayDirectoryContent(0);
 }
 
 void displayFile(Directory& d){
     printf("\nWhich file would you like to display?\n");
-    displayDirectory(d);
-    int fileNum = std::stoi(getUserInput());
+    d.displayDirectoryContent();
+    int fileNum = std::stoi(getUserInput()) - 1;
     printf("\n");
+    if (fileNum == d.getNumFiles()+3){
+        return;
+    }
     d.displayFileContents(fileNum);
 }
 
