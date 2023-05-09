@@ -31,6 +31,10 @@ void deleteFile(Directory& d){
     printf("Which file would you like to delete?\n");
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
+    printf("\n");
+    if (fileNum == d.getNumFiles()+2){
+        return;
+    }
     d.removeFile(fileNum);
 }
 
@@ -38,6 +42,10 @@ void addContents(Directory& d){
     printf("\nWhich file would you like to display?\n");
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
+    printf("\n");
+    if (fileNum == d.getNumFiles()+2){
+        return;
+    }
     std::string contents = getUserInput("Enter the contents to add: ");
     d.addToFile(fileNum, contents);
 }
@@ -46,6 +54,10 @@ void overwriteFile(Directory& d){
     printf("\nWhich file would you like to overwrite?\n");
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
+    printf("\n");
+    if (fileNum == d.getNumFiles()+2){
+        return;
+    }
     std::string contents = getUserInput("Enter the content to overwrite the file with: ");
     d.overwriteFile(fileNum, contents);
 }
@@ -60,7 +72,7 @@ void displayFile(Directory& d){
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
     printf("\n");
-    if (fileNum == d.getNumFiles()+3){
+    if (fileNum == d.getNumFiles()+2){
         return;
     }
     d.displayFileContents(fileNum);
