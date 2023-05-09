@@ -141,7 +141,12 @@ int Directory::addFile(File &file){
 }
 
 int Directory::removeFile(int fileNum){
-    for (int i = fileNum-1 ; i < numFiles+2; i++) {
+    if (numFiles == 0) { return 1; }
+    File toRemove = *fileList[fileNum];
+    std::string filePath = path + "/" + toRemove.getFileName();
+    // printf(filePath.c_str());
+    unlink(filePath.c_str());
+    for (int i = fileNum; i < numFiles+2; i++) {
         fileList[i] = fileList[i+1];
     }
     numFiles--;
