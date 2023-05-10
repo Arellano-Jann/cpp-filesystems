@@ -42,7 +42,7 @@ void deleteFile(Directory& d){
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
     printf("\n");
-    if (fileNum == d.getNumFiles()+2){
+    if (fileNum >= d.getNumFiles()+2){
         return;
     }
     d.removeFile(fileNum);
@@ -53,7 +53,7 @@ void addContents(Directory& d){
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
     printf("\n");
-    if (fileNum == d.getNumFiles()+2){
+    if (fileNum >= d.getNumFiles()+2){
         return;
     }
     std::string contents = getUserInput("Enter the contents to add: ");
@@ -65,7 +65,7 @@ void overwriteFile(Directory& d){
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
     printf("\n");
-    if (fileNum == d.getNumFiles()+2){
+    if (fileNum >= d.getNumFiles()+2){
         return;
     }
     std::string contents = getUserInput("Enter the content to overwrite the file with: ");
@@ -82,7 +82,7 @@ void displayFile(Directory& d){
     d.displayDirectoryContent();
     int fileNum = std::stoi(getUserInput()) - 1;
     printf("\n");
-    if (fileNum == d.getNumFiles()+2){
+    if (fileNum >= d.getNumFiles()+2){
         return;
     }
     d.displayFileContents(fileNum);
@@ -138,9 +138,9 @@ int main(){
     // printf("\t%i. %s\n\n", i, "Nevermind");
 
     printf("\nLet's create a directory!\n");
-    // std::string directoryName = getUserInput("Enter directory name: ");
-    std::string path = "test";
-    Directory d(path);
+    std::string directoryName = getUserInput("Enter directory name: ");
+    // std::string path = "test";
+    Directory d(directoryName);
     d.createDirectory();
     displayMenu(d);
 

@@ -41,6 +41,7 @@ int Directory::createDirectory(){ // getpwuid, getuid, c_str()
     int status = mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
     if (status == 0) {
         printf("Directory created.\n\n");
+        loadExistingDir();
         return 0;
     }
     else {
