@@ -11,6 +11,16 @@ std::string getUserInput(std::string prompt = ""){
 
 void createFile(Directory& d){
     std::string fileName = getUserInput("Enter the name of the file you'd like to add: \n");
+    if (fileName == ""){
+        printf("Invalid file name\n");
+        return;
+    }
+    for (int i = 0; i < d.getNumFiles(); i++){
+        if (fileName == d.getFileList()[i]->getFileName()){
+            printf("File already exists\n");
+            return;
+        }
+    }
     File* newFile = new File(fileName);
     std::string contentFlag = getUserInput("Would you like to write anything to the file?\nY. Yes\nN. No\n");
     // above needs to persist if y or n is not entered
